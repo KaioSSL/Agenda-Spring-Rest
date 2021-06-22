@@ -975,7 +975,7 @@
 											"top": 292,
 											"width": 129,
 											"height": 13,
-											"text": "+cep",
+											"text": "+cep: Integer",
 											"horizontalAlignment": 0
 										},
 										{
@@ -992,7 +992,7 @@
 											"top": 307,
 											"width": 129,
 											"height": 13,
-											"text": "+referencia",
+											"text": "+referencia: String",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1009,7 +1009,7 @@
 											"top": 322,
 											"width": 129,
 											"height": 13,
-											"text": "+complemento",
+											"text": "+complemento: String",
 											"horizontalAlignment": 0
 										}
 									],
@@ -4234,7 +4234,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF6IMCl/njJoZ0="
 							},
-							"name": "cep"
+							"name": "cep",
+							"type": "Integer"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4242,7 +4243,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF6IMCl/njJoZ0="
 							},
-							"name": "referencia"
+							"name": "referencia",
+							"type": "String"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4250,7 +4252,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF6IMCl/njJoZ0="
 							},
-							"name": "complemento"
+							"name": "complemento",
+							"type": "String"
 						}
 					]
 				},

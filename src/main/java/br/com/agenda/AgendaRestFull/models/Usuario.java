@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,17 +18,23 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column
+	
+	@Column(length = 10, nullable = false, unique = true)
 	private String login;
-	@Column
+	
+	@Column(length = 10, nullable = false)
 	private String senha;
-	@Column
+	
+	@Column(nullable = false)
 	private Date data_cadastro;
-	@Column
+	
+	@Column(nullable = false)
 	private Integer status;
-	@Column
+	
+	@Column(length = 30, nullable = false)
 	private String email;
-
+	
+	@OneToMany(mappedBy = "usuario")
 	private List<Contato> contatos;
 
 	public String getLogin() {
