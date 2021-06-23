@@ -18,25 +18,24 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(length = 10, nullable = false, unique = true)
 	private String login;
-	
+
 	@Column(length = 10, nullable = false)
 	private String senha;
-	
-	@Column(nullable = false)
-	private Date data_cadastro;
-	
+
+	private Date data_cadastro = new Date();
+
 	@Column(nullable = false)
 	private Integer status;
-	
+
 	@Column(length = 30, nullable = false)
 	private String email;
-	
+
 	@OneToMany(mappedBy = "usuario")
-	private List<Contato> contatos;	
-	
+	private List<Contato> contatos;
+
 	public Integer getId() {
 		return id;
 	}
@@ -93,27 +92,22 @@ public class Usuario {
 		this.contatos = contatos;
 	}
 
-	public Usuario(String login, String senha, Date data_cadastro, Integer status, String email,
-			List<Contato> contatos) {
+	public Usuario(String login, String senha, Integer status, String email, List<Contato> contatos) {
 		this.login = login;
 		this.senha = senha;
-		this.data_cadastro = data_cadastro;
 		this.status = status;
 		this.email = email;
 		this.contatos = contatos;
 	}
-	
-	public Usuario(String login, String senha, Date data_cadastro, Integer status, String email) {
+
+	public Usuario(String login, String senha, Integer status, String email) {
 		this.login = login;
 		this.senha = senha;
-		this.data_cadastro = data_cadastro;
 		this.status = status;
 		this.email = email;
 	}
 
 	public Usuario() {
 	}
-	
-	
 
 }

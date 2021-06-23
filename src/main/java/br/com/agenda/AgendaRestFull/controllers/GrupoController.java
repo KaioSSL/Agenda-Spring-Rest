@@ -1,6 +1,5 @@
 package br.com.agenda.AgendaRestFull.controllers;
 
-import java.util.Iterator;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agenda.AgendaRestFull.models.Grupo;
@@ -64,7 +63,7 @@ public class GrupoController {
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Grupo> getGrupo(@RequestParam Integer id) {
+	public ResponseEntity<Grupo> getGrupo(@PathVariable(name = "id", required = true) Integer id) {
 		Optional<Grupo> opGrupo = grupoRepository.findById(id);
 		Grupo grupo = opGrupo.isPresent() ? opGrupo.get() : null;
 		if (grupo != null) {
@@ -75,10 +74,12 @@ public class GrupoController {
 	}
 
 	@GetMapping
-	public ResponseEntity<Grupo> getGrupos() {
-		Iterator<Grupo> itGrupo = grupoRepository.findAll().iterator();
-		if (itGrupo.hasNext()) {
-			return Response
+	public ResponseEntity<Iterable<Grupo>> getGrupos() {
+		Iterable<Grupo> itGrupo = grupoRepository.findAll();
+		if (itGrupo.iterator().hasNext()) {
+			return ResponseEntity.status(HttpStatus.OK).body(itGrupo);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 

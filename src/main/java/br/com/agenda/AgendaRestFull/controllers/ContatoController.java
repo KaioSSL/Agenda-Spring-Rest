@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +29,24 @@ public class ContatoController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(contato);
 		}
 	}
+
+	@PutMapping
+	public ResponseEntity<Contato> updateContato(@Validated @RequestBody Contato contato) {
+		if (contatoRepository.findById(contato.getId()).isPresent()) {
+			if (contatoRepository.save(contato) != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(contato);
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(contato);
+			}
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+
+	@DeleteMapping
+	public ResponseEntity<Contato> deleteContato(@Validated @RequestBody Contato contato) {
+	}
+
 	/*
 	 * @PutMapping
 	 * 
