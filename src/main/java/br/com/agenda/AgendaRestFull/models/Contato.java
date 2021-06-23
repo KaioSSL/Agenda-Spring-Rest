@@ -21,36 +21,36 @@ public class Contato {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(length = 30, nullable = false)
-	
+
 	private String nome;
 	@Column(length = 30, nullable = false)
 	private String sobrenome;
-	
+
 	@Column(nullable = false)
 	private Integer telefone;
-	
+
 	@Column(length = 30, nullable = false)
 	private String email;
-	
-	@Column( nullable = false)
+
+	@Column(nullable = false)
 	private Date data_cadastro;
-	
+
 	@Column(nullable = false)
 	private Integer celular;
-	
+
 	@Column(nullable = false)
 	private Integer marcador;
-	
+
 	@Column(length = 255, nullable = false)
 	private String observacao;
-	
+
 	// Ligações
 	@ManyToOne
 	private Usuario usuario;
-	
+
 	@ManyToOne
 	private Grupo grupo;
-	
+
 	@OneToMany(mappedBy = "contato")
 	private List<Endereco> enderecos;
 
@@ -141,7 +141,7 @@ public class Contato {
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
 	}
-	
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -149,11 +149,11 @@ public class Contato {
 	public void setEnderecos(List<Endereco> endereco) {
 		this.enderecos = endereco;
 	}
-	
+
 	public void addEndereco(Endereco endereco) {
 		this.enderecos.add(endereco);
 	}
-	
+
 	public void removeEndereco(Endereco endereco) {
 		this.removeEndereco(endereco);
 	}
@@ -174,6 +174,21 @@ public class Contato {
 		this.enderecos = enderecos;
 	}
 
+	public Contato(String nome, String sobrenome, Integer telefone, String email, Date data_cadastro, Integer celular,
+			Integer marcador, String observacao, Usuario usuario, Grupo grupo) {
+		super();
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.telefone = telefone;
+		this.email = email;
+		this.data_cadastro = data_cadastro;
+		this.celular = celular;
+		this.marcador = marcador;
+		this.observacao = observacao;
+		this.usuario = usuario;
+		this.grupo = grupo;
+	}
+
 	public Contato() {
 	}
 
@@ -192,13 +207,13 @@ public class Contato {
 		if (getClass() != obj.getClass())
 			return false;
 		Contato other = (Contato) obj;
-		return Objects.equals(celular, other.celular) && Objects.equals(data_cadastro, other.data_cadastro)
-				&& Objects.equals(email, other.email) && Objects.equals(enderecos, other.enderecos)
-				&& Objects.equals(grupo, other.grupo) && Objects.equals(id, other.id)
-				&& Objects.equals(marcador, other.marcador) && Objects.equals(nome, other.nome)
-				&& Objects.equals(observacao, other.observacao) && Objects.equals(sobrenome, other.sobrenome)
-				&& Objects.equals(telefone, other.telefone) && Objects.equals(usuario, other.usuario);
+		return Objects.equals(celular, other.celular) && Objects.equals(data_cadastro, other.data_cadastro) && Objects
+				.equals(email, other.email) && Objects.equals(enderecos, other.enderecos) && Objects.equals(grupo,
+						other.grupo) && Objects.equals(id, other.id) && Objects.equals(marcador,
+								other.marcador) && Objects.equals(nome, other.nome) && Objects.equals(observacao,
+										other.observacao) && Objects.equals(sobrenome, other.sobrenome) && Objects
+												.equals(telefone,
+														other.telefone) && Objects.equals(usuario, other.usuario);
 	}
-	
-	
+
 }

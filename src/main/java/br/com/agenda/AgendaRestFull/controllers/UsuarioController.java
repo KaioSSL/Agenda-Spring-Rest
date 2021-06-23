@@ -1,4 +1,7 @@
 package br.com.agenda.AgendaRestFull.controllers;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,60 +21,65 @@ import br.com.agenda.AgendaRestFull.repositorys.UsuarioRepository;
 @RestController
 @RequestMapping(path = "/api/usuario")
 public class UsuarioController {
-	
+
 	@Autowired
 	UsuarioRepository usuarioRepository;
-	
+
 	@PostMapping
 	public ResponseEntity<Usuario> insertUsuario(@Validated @RequestBody Usuario usuario) {
-		if(usuarioRepository.save(usuario) != null) {			
+		if (usuarioRepository.save(usuario) != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
-		}else{
+		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
 		}
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Usuario> updateUsuario(@Validated @RequestBody Usuario usuario){
-		if(usuarioRepository.save(usuario) != null){
-			return ResponseEntity.status(HttpStatus.OK).body(usuario);
-		}else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
-		}
-	}
-	
-	@DeleteMapping
-	public ResponseEntity<Usuario> deleteUsuario(@Validated @RequestBody Usuario usuario){
-		try {
-			if(!usuarioRepository.findById(usuario.getId()).isEmpty()) {
-				usuarioRepository.delete(usuario);
-				return ResponseEntity.status(HttpStatus.OK).body(usuario);				
-			}else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	public ResponseEntity<Usuario> updateUsuario(@Validated @RequestBody Usuario usuario) {
+		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
+			if (usuarioRepository.save(usuario) != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(usuario);
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
 			}
-		}catch(Exception e) {
-			System.out.println(e.getStackTrace());
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
-		}
-	}
-	
-	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> getUsuario(@RequestParam(name = "id",required = true) Integer id){
-		Usuario usuario = usuarioRepository.findById(id).get();
-		if(usuario!=null) {
-			return ResponseEntity.status(HttpStatus.OK).body(usuario);
-		}else {
+		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
-	
+
+	@DeleteMapping
+	public ResponseEntity<Usuario> deleteUsuario(@Validated @RequestBody Usuario usuario) {
+		try {
+			if (usuarioRepository.findById(usuario.getId()).isPresent()) {
+				usuarioRepository.delete(usuario);
+				return ResponseEntity.status(HttpStatus.OK).body(usuario);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
+		}
+	}
+
+	@GetMapping("/{id}")
+	public ResponseEntity<Usuario> getUsuario(@RequestParam(name = "id", required = true) Integer id) {
+		Optional<Usuario> opUsuario = usuarioRepository.findById(id);
+		Usuario usuario = opUsuario.isPresent() ? opUsuario.get() : null;
+		if (usuario != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(usuario);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+
 	@GetMapping
-	public ResponseEntity<Iterable<Usuario>> getUsuarios(){
+	public ResponseEntity<Iterable<Usuario>> getUsuarios() {
 		Iterable<Usuario> itUsuario = usuarioRepository.findAll();
-		if(itUsuario.iterator().hasNext()) {
-			return ResponseEntity.status(HttpStatus.OK).body(itUsuario);			
-		}else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
+		if (itUsuario.iterator().hasNext()) {
+			return ResponseEntity.status(HttpStatus.OK).body(itUsuario);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 }
