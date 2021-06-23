@@ -35,7 +35,15 @@ public class Usuario {
 	private String email;
 	
 	@OneToMany(mappedBy = "usuario")
-	private List<Contato> contatos;
+	private List<Contato> contatos;	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getLogin() {
 		return login;
@@ -94,8 +102,18 @@ public class Usuario {
 		this.email = email;
 		this.contatos = contatos;
 	}
+	
+	public Usuario(String login, String senha, Date data_cadastro, Integer status, String email) {
+		this.login = login;
+		this.senha = senha;
+		this.data_cadastro = data_cadastro;
+		this.status = status;
+		this.email = email;
+	}
 
 	public Usuario() {
 	}
+	
+	
 
 }
