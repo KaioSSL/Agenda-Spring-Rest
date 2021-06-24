@@ -30,7 +30,7 @@ public class GrupoController {
 		if (grupoRepository.save(grupo) != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(grupo);
 		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(grupo);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -40,10 +40,10 @@ public class GrupoController {
 			if (grupoRepository.save(grupo) != null) {
 				return ResponseEntity.status(HttpStatus.OK).body(grupo);
 			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(grupo);
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			}
 		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(grupo);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 

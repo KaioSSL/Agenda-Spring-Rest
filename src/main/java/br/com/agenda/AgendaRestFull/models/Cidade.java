@@ -12,8 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "AG_CIDADE")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Cidade {
 	
 	@Id
@@ -68,7 +72,7 @@ public class Cidade {
 		this.bairros.add(bairro);
 	}
 	
-	public void removeBairrO(Bairro bairro) {
+	public void removeBairro(Bairro bairro) {
 		this.bairros.remove(bairro);
 	}
 	
@@ -84,6 +88,11 @@ public class Cidade {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.bairros = bairros;
+		this.estado = estado;
+	}
+	public Cidade(String nome, String descricao, Estado estado) {
+		this.nome = nome;
+		this.descricao = descricao;
 		this.estado = estado;
 	}
 

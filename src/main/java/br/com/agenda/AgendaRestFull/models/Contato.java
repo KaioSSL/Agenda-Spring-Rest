@@ -13,8 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "AG_CONTATO")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Contato {
 
 	@Id
@@ -27,16 +31,16 @@ public class Contato {
 	private String sobrenome;
 
 	@Column(nullable = false)
-	private Integer telefone;
+	private String telefone;
 
 	@Column(length = 30, nullable = false)
 	private String email;
 
 	@Column(nullable = false)
-	private Date data_cadastro;
+	private Date data_cadastro = new Date();
 
 	@Column(nullable = false)
-	private Integer celular;
+	private String celular;
 
 	@Column(nullable = false)
 	private Integer marcador;
@@ -78,11 +82,11 @@ public class Contato {
 		this.sobrenome = sobrenome;
 	}
 
-	public Integer getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(Integer telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 
@@ -102,11 +106,11 @@ public class Contato {
 		this.data_cadastro = data_cadastro;
 	}
 
-	public Integer getCelular() {
+	public String getCelular() {
 		return celular;
 	}
 
-	public void setCelular(Integer celular) {
+	public void setCelular(String celular) {
 		this.celular = celular;
 	}
 
@@ -158,14 +162,13 @@ public class Contato {
 		this.removeEndereco(endereco);
 	}
 
-	public Contato(String nome, String sobrenome, Integer telefone, String email, Date data_cadastro, Integer celular,
+	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
 			Integer marcador, String observacao, Usuario usuario, Grupo grupo, List<Endereco> enderecos) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.telefone = telefone;
 		this.email = email;
-		this.data_cadastro = data_cadastro;
 		this.celular = celular;
 		this.marcador = marcador;
 		this.observacao = observacao;
@@ -174,14 +177,13 @@ public class Contato {
 		this.enderecos = enderecos;
 	}
 
-	public Contato(String nome, String sobrenome, Integer telefone, String email, Date data_cadastro, Integer celular,
+	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
 			Integer marcador, String observacao, Usuario usuario, Grupo grupo) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.telefone = telefone;
 		this.email = email;
-		this.data_cadastro = data_cadastro;
 		this.celular = celular;
 		this.marcador = marcador;
 		this.observacao = observacao;

@@ -30,7 +30,7 @@ public class UsuarioController {
 		if (usuarioRepository.save(usuario) != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
 		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
@@ -40,7 +40,7 @@ public class UsuarioController {
 			if (usuarioRepository.save(usuario) != null) {
 				return ResponseEntity.status(HttpStatus.OK).body(usuario);
 			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			}
 		} else {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -58,7 +58,7 @@ public class UsuarioController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(usuario);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 

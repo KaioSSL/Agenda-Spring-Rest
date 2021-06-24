@@ -12,8 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "AG_ESTADO")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Estado {
 	
 	@Id
@@ -90,11 +94,17 @@ public class Estado {
 		this.pais = pais;
 	}
 
-	public Estado(String nome, String descricao, List<Cidade> cidades, Pais pais) {
-		super();
+	public Estado(String nome, String descricao, String sigla, List<Cidade> cidades, Pais pais) {
 		this.nome = nome;
 		this.descricao = descricao;
+		this.sigla = sigla;
 		this.cidades = cidades;
+		this.pais = pais;
+	}
+	public Estado(String nome, String descricao,String sigla, Pais pais) {
+		this.nome = nome;
+		this.descricao = descricao;
+		this.sigla = sigla;
 		this.pais = pais;
 	}
 
@@ -120,10 +130,4 @@ public class Estado {
 				&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome) && Objects.equals(pais, other.pais)
 				&& Objects.equals(sigla, other.sigla);
 	}
-	
-	
-	
-	
-	
-
 }

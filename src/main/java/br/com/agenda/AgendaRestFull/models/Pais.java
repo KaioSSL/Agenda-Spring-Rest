@@ -11,8 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "AG_PAIS")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Pais {
 	
 	@Id
@@ -72,6 +76,11 @@ public class Pais {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.estados = estados;
+	}
+	public Pais(String nome, String descricao) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
 	}
 
 	public Pais() {
