@@ -1,4 +1,4 @@
-package br.com.agenda.AgendaRestFull.models;
+package br.com.agenda.AgendaRestFull.models.Entity;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_GRUPO")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = Grupo.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Grupo {
 
 	@Id

@@ -1,4 +1,4 @@
-package br.com.agenda.AgendaRestFull.models;
+package br.com.agenda.AgendaRestFull.models.Entity;
 
 import java.util.Date;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_CONTATO")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = Contato.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Contato {
 
 	@Id
@@ -50,7 +50,7 @@ public class Contato {
 
 	// Ligações
 	@ManyToOne
-	private Usuario usuario;
+	private UsuarioEntity usuario;
 
 	@ManyToOne
 	private Grupo grupo;
@@ -130,11 +130,11 @@ public class Contato {
 		this.observacao = observacao;
 	}
 
-	public Usuario getUsuario() {
+	public UsuarioEntity getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioEntity usuario) {
 		this.usuario = usuario;
 	}
 
@@ -163,7 +163,7 @@ public class Contato {
 	}
 
 	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
-			Integer marcador, String observacao, Usuario usuario, Grupo grupo, List<Endereco> enderecos) {
+			Integer marcador, String observacao, UsuarioEntity usuario, Grupo grupo, List<Endereco> enderecos) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -178,7 +178,7 @@ public class Contato {
 	}
 
 	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
-			Integer marcador, String observacao, Usuario usuario, Grupo grupo) {
+			Integer marcador, String observacao, UsuarioEntity usuario, Grupo grupo) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;

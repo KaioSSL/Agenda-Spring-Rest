@@ -1,4 +1,4 @@
-package br.com.agenda.AgendaRestFull.models;
+package br.com.agenda.AgendaRestFull.models.Entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -16,9 +15,9 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name = "AG_CIDADE")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Cidade {
+@Table(name = "AG_PAIS")
+@JsonIdentityInfo(scope = Pais.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Pais {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +29,8 @@ public class Cidade {
 	@Column(length = 90, nullable = false)
 	private String descricao;
 	
-	@OneToMany(mappedBy = "cidade")
-	private List<Bairro> bairros;
-	
-	@ManyToOne
-	private Estado estado;
+	@OneToMany(mappedBy = "pais")
+	private List<Estado> estados;
 
 	public Integer getId() {
 		return id;
@@ -60,48 +56,40 @@ public class Cidade {
 		this.descricao = descricao;
 	}
 
-	public List<Bairro> getBairros() {
-		return bairros;
+	public List<Estado> getEstados() {
+		return estados;
 	}
 
-	public void setBairros(List<Bairro> bairros) {
-		this.bairros = bairros;
-	}
-
-	public void addBairro(Bairro bairro) {
-		this.bairros.add(bairro);
+	public void setEstados(List<Estado> estados) {
+		this.estados = estados;
 	}
 	
-	public void removeBairro(Bairro bairro) {
-		this.bairros.remove(bairro);
+	public void addEstado(Estado estado) {
+		this.estados.add(estado);
 	}
-	
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void removeEstado(Estado estado) {
+		this.estados.remove(estado);
 	}
 
-	public Cidade(String nome, String descricao, List<Bairro> bairros, Estado estado) {
+	public Pais(String nome, String descricao, List<Estado> estados) {
+		super();
 		this.nome = nome;
 		this.descricao = descricao;
-		this.bairros = bairros;
-		this.estado = estado;
+		this.estados = estados;
 	}
-	public Cidade(String nome, String descricao, Estado estado) {
+	public Pais(String nome, String descricao) {
+		super();
 		this.nome = nome;
 		this.descricao = descricao;
-		this.estado = estado;
 	}
 
-	public Cidade() {
+	public Pais() {
+		super();
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(bairros, descricao, estado, id, nome);
+		return Objects.hash(descricao, estados, id, nome);
 	}
 
 	@Override
@@ -112,10 +100,8 @@ public class Cidade {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
-		return Objects.equals(bairros, other.bairros) && Objects.equals(descricao, other.descricao)
-				&& Objects.equals(estado, other.estado) && Objects.equals(id, other.id)
-				&& Objects.equals(nome, other.nome);
+		Pais other = (Pais) obj;
+		return Objects.equals(descricao, other.descricao) && Objects.equals(estados, other.estados)
+				&& Objects.equals(id, other.id) && Objects.equals(nome, other.nome);
 	}
-	
 }

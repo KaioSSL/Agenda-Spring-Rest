@@ -1,4 +1,4 @@
-package br.com.agenda.AgendaRestFull.controllers;
+package br.com.agenda.AgendaRestFull.controller;
 
 import java.util.Optional;
 
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.agenda.AgendaRestFull.models.Cidade;
+import br.com.agenda.AgendaRestFull.models.Entity.Cidade;
 import br.com.agenda.AgendaRestFull.repositorys.CidadeRepository;
 
 @RestController

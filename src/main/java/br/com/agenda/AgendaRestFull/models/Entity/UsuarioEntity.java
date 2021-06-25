@@ -1,4 +1,4 @@
-package br.com.agenda.AgendaRestFull.models;
+package br.com.agenda.AgendaRestFull.models.Entity;
 
 import java.util.Date;
 import java.util.List;
@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_USU")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Usuario {
+@JsonIdentityInfo(scope = UsuarioEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class UsuarioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,7 +96,7 @@ public class Usuario {
 		this.contatos = contatos;
 	}
 
-	public Usuario(String login, String senha, Integer status, String email, List<Contato> contatos) {
+	public UsuarioEntity(String login, String senha, Integer status, String email, List<Contato> contatos) {
 		this.login = login;
 		this.senha = senha;
 		this.status = status;
@@ -104,14 +104,14 @@ public class Usuario {
 		this.contatos = contatos;
 	}
 
-	public Usuario(String login, String senha, Integer status, String email) {
+	public UsuarioEntity(String login, String senha, Integer status, String email) {
 		this.login = login;
 		this.senha = senha;
 		this.status = status;
 		this.email = email;
 	}
 
-	public Usuario() {
+	public UsuarioEntity() {
 	}
 
 }

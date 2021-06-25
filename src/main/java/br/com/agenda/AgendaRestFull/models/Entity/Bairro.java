@@ -1,4 +1,4 @@
-package br.com.agenda.AgendaRestFull.models;
+package br.com.agenda.AgendaRestFull.models.Entity;
 
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_BAIRRO")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(scope = Bairro.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Bairro {
 	
 	@Id
@@ -89,6 +89,13 @@ public class Bairro {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.enderecos = enderecos;
+		this.cidade = cidade;
+	}
+
+	public Bairro(String nome, String descricao, Cidade cidade) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
 		this.cidade = cidade;
 	}
 
