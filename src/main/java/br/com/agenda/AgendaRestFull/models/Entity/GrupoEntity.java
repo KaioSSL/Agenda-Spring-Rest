@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_GRUPO")
-@JsonIdentityInfo(scope = Grupo.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Grupo {
+@JsonIdentityInfo(scope = GrupoEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class GrupoEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +30,7 @@ public class Grupo {
 	@Column(length = 20, nullable = false)
 	private String nome;
 
-	@Column(nullable = false)
+	@Column
 	private Date data_cadastro = new Date();
 
 	@OneToMany(mappedBy = "grupo")
@@ -76,18 +76,18 @@ public class Grupo {
 		this.nome = nome;
 	}
 
-	public Grupo(String desc, String nome, List<Contato> contatos) {
+	public GrupoEntity(String desc, String nome, List<Contato> contatos) {
 		this.nome = nome;
 		this.descricao = desc;
 		this.contatos = contatos;
 	}
 
-	public Grupo(String desc, String nome) {
+	public GrupoEntity(String desc, String nome) {
 		this.descricao = desc;
 		this.nome = nome;
 	}
 
-	public Grupo() {
+	public GrupoEntity() {
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class Grupo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Grupo other = (Grupo) obj;
+		GrupoEntity other = (GrupoEntity) obj;
 		return Objects.equals(contatos, other.contatos) && Objects.equals(data_cadastro, other.data_cadastro) && Objects
 				.equals(descricao, other.descricao) && Objects.equals(id, other.id);
 	}

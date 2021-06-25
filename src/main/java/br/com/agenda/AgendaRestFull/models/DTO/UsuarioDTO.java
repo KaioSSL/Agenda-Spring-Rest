@@ -3,19 +3,34 @@ package br.com.agenda.AgendaRestFull.models.DTO;
 import java.util.Date;
 import java.util.List;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import br.com.agenda.AgendaRestFull.models.Entity.Contato;
 
 public class UsuarioDTO {
-	@NotNull
-	@Pat
+	
+	@Positive
 	private Integer id;
+	
+	@Size(min = 4, max = 10, message = "Favor inserir um login que contenha entre 4 a 10 caracteres")
 	private String login;
+	
+	@Size(min = 4, max = 10, message = "Favor inserir uma senha que contenha entre 4 a 10 caracteres")
 	private String senha;
-	private Date data_cadastro;
+	
+	private Date data_cadastro = new Date();
+	
+	@Max(1)
+	@Min(0)
 	private Integer status;
+	
+	@Email
 	private String email;
+	
 	private List<Contato> contatos;
 	
 	//Getters and Setters

@@ -15,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agenda.AgendaRestFull.models.DTO.UsuarioDTO;
-import br.com.agenda.AgendaRestFull.repositorys.UsuarioRepository;
 import br.com.agenda.AgendaRestFull.service.UsuarioService;
 
 @RestController
 @RequestMapping(path = "/api/usuario")
 public class UsuarioController {
-
-	@Autowired
-	UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	UsuarioService service;

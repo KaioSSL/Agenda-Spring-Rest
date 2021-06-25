@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import br.com.agenda.AgendaRestFull.models.DTO.UsuarioDTO;
 import br.com.agenda.AgendaRestFull.models.Entity.UsuarioEntity;
 import br.com.agenda.AgendaRestFull.repositorys.UsuarioRepository;
 
+@Service
 public class UsuarioService implements AgendaService<UsuarioDTO>{
 	
 	@Autowired
@@ -29,6 +31,7 @@ public class UsuarioService implements AgendaService<UsuarioDTO>{
 		try {
 			UsuarioEntity usuario = modelMapper.map(usuarioDto, UsuarioEntity.class);
 			if (usuarioRepository.save(usuario) != null) {
+				usuarioDto = modelMapper.map(usuario,UsuarioDTO.class);
 				return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDto);
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -46,6 +49,7 @@ public class UsuarioService implements AgendaService<UsuarioDTO>{
 			UsuarioEntity usuario = modelMapper.map(usuarioDto, UsuarioEntity.class);
 			if (usuarioRepository.findById(usuario.getId()).isPresent()) {
 				if (usuarioRepository.save(usuario) != null) {
+					usuarioDto = modelMapper.map(usuario,UsuarioDTO.class);
 					return ResponseEntity.status(HttpStatus.OK).body(usuarioDto);
 				} else {
 					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -66,7 +70,8 @@ public class UsuarioService implements AgendaService<UsuarioDTO>{
 			UsuarioEntity usuario = modelMapper.map(usuarioDto, UsuarioEntity.class);
 			if (usuarioRepository.findById(usuario.getId()).isPresent()) {
 				usuarioRepository.delete(usuario);
-				return ResponseEntity.status(HttpStatus.OK).body(usuarioDto);
+				usuarioDto = modelMapper.map(usuario,UsuarioDTO.class);
+				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 			} else {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}

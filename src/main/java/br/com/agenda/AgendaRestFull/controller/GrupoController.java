@@ -1,5 +1,6 @@
 package br.com.agenda.AgendaRestFull.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.agenda.AgendaRestFull.models.Entity.Grupo;
+import br.com.agenda.AgendaRestFull.models.DTO.GrupoDTO;
+import br.com.agenda.AgendaRestFull.models.Entity.GrupoEntity;
 import br.com.agenda.AgendaRestFull.repositorys.GrupoRepository;
+import br.com.agenda.AgendaRestFull.service.GrupoService;
 
 @RestController
 @RequestMapping(path = "/api/grupo")
@@ -24,48 +27,34 @@ public class GrupoController {
 
 	@Autowired
 	GrupoRepository grupoRepository;
+	
+	@Autowired
+	GrupoService service;
 
 	@PostMapping
-	public ResponseEntity<Grupo> insertGrupo(@Validated @RequestBody Grupo grupo) {
-		if (grupoRepository.save(grupo) != null) {
-			return ResponseEntity.status(HttpStatus.CREATED).body(grupo);
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+	public ResponseEntity<GrupoDTO> insertGrupo(@Validated @RequestBody GrupoDTO grupo) {
+		return service.insert(grupo);
 	}
 
 	@PutMapping
-	public ResponseEntity<Grupo> updateGrupo(@Validated @RequestBody Grupo grupo) {
-		if (grupoRepository.findById(grupo.getId()).isPresent()) {
-			if (grupoRepository.save(grupo) != null) {
-				return ResponseEntity.status(HttpStatus.OK).body(grupo);
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-			}
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+	public ResponseEntity<GrupoDTO> updateGrupo(@Validated @RequestBody GrupoDTO grupo) {	
+		return service.update(grupo);
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Grupo> deleteGrupo(@Validated @RequestBody Grupo grupo) {
-		try {
-			if (grupoRepository.findById(grupo.getId()).isPresent()) {
-				grupoRepository.delete(grupo);
-				return ResponseEntity.status(HttpStatus.OK).body(grupo);
-			} else {
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+	public ResponseEntity<GrupoDTO> deleteGrupo(@Validated @RequestBody GrupoDTO grupo) {
+		return service.delete(grupo);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<GrupoDTO>> getGrupos() {
+		return service.get();
 	}
 
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Grupo> getGrupo(@PathVariable(name = "id", required = true) Integer id) {
-		Optional<Grupo> opGrupo = grupoRepository.findById(id);
-		Grupo grupo = opGrupo.isPresent() ? opGrupo.get() : null;
+	public ResponseEntity<GrupoEntity> getGrupo(@PathVariable(name = "id", required = true) Integer id) {
+		Optional<GrupoEntity> opGrupo = grupoRepository.findById(id);
+		GrupoEntity grupo = opGrupo.isPresent() ? opGrupo.get() : null;
 		if (grupo != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(grupo);
 		} else {
@@ -73,14 +62,6 @@ public class GrupoController {
 		}
 	}
 
-	@GetMapping
-	public ResponseEntity<Iterable<Grupo>> getGrupos() {
-		Iterable<Grupo> itGrupo = grupoRepository.findAll();
-		if (itGrupo.iterator().hasNext()) {
-			return ResponseEntity.status(HttpStatus.OK).body(itGrupo);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-	}
+
 
 }

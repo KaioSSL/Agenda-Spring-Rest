@@ -53,7 +53,7 @@ public class Contato {
 	private UsuarioEntity usuario;
 
 	@ManyToOne
-	private Grupo grupo;
+	private GrupoEntity grupo;
 
 	@OneToMany(mappedBy = "contato")
 	private List<Endereco> enderecos;
@@ -138,11 +138,11 @@ public class Contato {
 		this.usuario = usuario;
 	}
 
-	public Grupo getGrupo() {
+	public GrupoEntity getGrupo() {
 		return grupo;
 	}
 
-	public void setGrupo(Grupo grupo) {
+	public void setGrupo(GrupoEntity grupo) {
 		this.grupo = grupo;
 	}
 
@@ -163,7 +163,7 @@ public class Contato {
 	}
 
 	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
-			Integer marcador, String observacao, UsuarioEntity usuario, Grupo grupo, List<Endereco> enderecos) {
+			Integer marcador, String observacao, UsuarioEntity usuario, GrupoEntity grupo, List<Endereco> enderecos) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -178,7 +178,7 @@ public class Contato {
 	}
 
 	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
-			Integer marcador, String observacao, UsuarioEntity usuario, Grupo grupo) {
+			Integer marcador, String observacao, UsuarioEntity usuario, GrupoEntity grupo) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
