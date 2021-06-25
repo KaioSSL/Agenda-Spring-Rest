@@ -38,7 +38,7 @@ public class UsuarioEntity {
 	private String email;
 
 	@OneToMany(mappedBy = "usuario")
-	private List<Contato> contatos;
+	private List<ContatoEntity> contatos;
 
 	public Integer getId() {
 		return id;
@@ -88,15 +88,15 @@ public class UsuarioEntity {
 		this.email = email;
 	}
 
-	public List<Contato> getContatos() {
+	public List<ContatoEntity> getContatos() {
 		return contatos;
 	}
 
-	public void setContatos(List<Contato> contatos) {
+	public void setContatos(List<ContatoEntity> contatos) {
 		this.contatos = contatos;
 	}
 
-	public UsuarioEntity(String login, String senha, Integer status, String email, List<Contato> contatos) {
+	public UsuarioEntity(String login, String senha, Integer status, String email, List<ContatoEntity> contatos) {
 		this.login = login;
 		this.senha = senha;
 		this.status = status;

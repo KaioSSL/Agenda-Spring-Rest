@@ -40,7 +40,7 @@ public class Endereco {
 	private Bairro bairro;
 
 	@ManyToOne
-	private Contato contato;
+	private ContatoEntity contato;
 	
 	public Integer getId() {
 		return id;
@@ -99,16 +99,16 @@ public class Endereco {
 	}
 
 	
-	public Contato getContato() {
+	public ContatoEntity getContato() {
 		return contato;
 	}
 
-	public void setContato(Contato contato) {
+	public void setContato(ContatoEntity contato) {
 		this.contato = contato;
 	}
 
 	public Endereco(String logradouro, Integer n_logradouro, Integer cep, String referencia, String complemento,
-			Bairro bairro, Contato contato) {
+			Bairro bairro, ContatoEntity contato) {
 		this.logradouro = logradouro;
 		this.n_logradouro = n_logradouro;
 		this.cep = cep;

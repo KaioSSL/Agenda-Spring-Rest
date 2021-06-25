@@ -18,15 +18,16 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_CONTATO")
-@JsonIdentityInfo(scope = Contato.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Contato {
+@JsonIdentityInfo(scope = ContatoEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class ContatoEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(length = 30, nullable = false)
 
+	@Column(length = 30, nullable = false)
 	private String nome;
+
 	@Column(length = 30, nullable = false)
 	private String sobrenome;
 
@@ -162,8 +163,8 @@ public class Contato {
 		this.removeEndereco(endereco);
 	}
 
-	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
-			Integer marcador, String observacao, UsuarioEntity usuario, GrupoEntity grupo, List<Endereco> enderecos) {
+	public ContatoEntity(String nome, String sobrenome, String telefone, String email, String celular, Integer marcador,
+			String observacao, UsuarioEntity usuario, GrupoEntity grupo, List<Endereco> enderecos) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -177,8 +178,8 @@ public class Contato {
 		this.enderecos = enderecos;
 	}
 
-	public Contato(String nome, String sobrenome, String telefone, String email, String celular,
-			Integer marcador, String observacao, UsuarioEntity usuario, GrupoEntity grupo) {
+	public ContatoEntity(String nome, String sobrenome, String telefone, String email, String celular, Integer marcador,
+			String observacao, UsuarioEntity usuario, GrupoEntity grupo) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
@@ -191,7 +192,7 @@ public class Contato {
 		this.grupo = grupo;
 	}
 
-	public Contato() {
+	public ContatoEntity() {
 	}
 
 	@Override
@@ -208,7 +209,7 @@ public class Contato {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contato other = (Contato) obj;
+		ContatoEntity other = (ContatoEntity) obj;
 		return Objects.equals(celular, other.celular) && Objects.equals(data_cadastro, other.data_cadastro) && Objects
 				.equals(email, other.email) && Objects.equals(enderecos, other.enderecos) && Objects.equals(grupo,
 						other.grupo) && Objects.equals(id, other.id) && Objects.equals(marcador,

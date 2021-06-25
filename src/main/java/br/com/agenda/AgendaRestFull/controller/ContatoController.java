@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.agenda.AgendaRestFull.models.Entity.Contato;
+import br.com.agenda.AgendaRestFull.models.Entity.ContatoEntity;
 import br.com.agenda.AgendaRestFull.repositorys.ContatoRepository;
 
 @RestController
@@ -26,7 +26,7 @@ public class ContatoController {
 	ContatoRepository contatoRepository;
 
 	@PostMapping
-	public ResponseEntity<Contato> insertContato(@Validated @RequestBody Contato contato) {
+	public ResponseEntity<ContatoEntity> insertContato(@Validated @RequestBody ContatoEntity contato) {
 		if (contatoRepository.save(contato) != null) {
 			return ResponseEntity.status(HttpStatus.CREATED).body(contato);
 		} else {
@@ -35,7 +35,7 @@ public class ContatoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Contato> updateContato(@Validated @RequestBody Contato contato) {
+	public ResponseEntity<ContatoEntity> updateContato(@Validated @RequestBody ContatoEntity contato) {
 		if (contatoRepository.findById(contato.getId()).isPresent()) {
 			if (contatoRepository.save(contato) != null) {
 				return ResponseEntity.status(HttpStatus.OK).body(contato);
@@ -48,7 +48,7 @@ public class ContatoController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Contato> deleteContato(@Validated @RequestBody Contato contato) {
+	public ResponseEntity<ContatoEntity> deleteContato(@Validated @RequestBody ContatoEntity contato) {
 		try {
 			if(contatoRepository.findById(contato.getId()).isPresent()) {
 				contatoRepository.delete(contato);
@@ -63,9 +63,9 @@ public class ContatoController {
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Contato> getContato(@PathVariable(name = "id", required = true) Integer id){
-		Optional<Contato> opContato = contatoRepository.findById(id);
-		Contato contato = opContato.isPresent()?opContato.get():null;
+	public ResponseEntity<ContatoEntity> getContato(@PathVariable(name = "id", required = true) Integer id){
+		Optional<ContatoEntity> opContato = contatoRepository.findById(id);
+		ContatoEntity contato = opContato.isPresent()?opContato.get():null;
 		if(contato != null) {
 			return ResponseEntity.status(HttpStatus.OK).body(contato);
 		}else {
@@ -74,8 +74,8 @@ public class ContatoController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<Iterable<Contato>> getContatos(){
-		Iterable<Contato> contatos = contatoRepository.findAll();
+	public ResponseEntity<Iterable<ContatoEntity>> getContatos(){
+		Iterable<ContatoEntity> contatos = contatoRepository.findAll();
 		if(contatos.iterator().hasNext()) {
 			return ResponseEntity.status(HttpStatus.OK).body(contatos);
 		}else {

@@ -34,7 +34,7 @@ public class GrupoEntity {
 	private Date data_cadastro = new Date();
 
 	@OneToMany(mappedBy = "grupo")
-	private List<Contato> contatos;
+	private List<ContatoEntity> contatos;
 
 	public Integer getId() {
 		return id;
@@ -52,11 +52,11 @@ public class GrupoEntity {
 		this.data_cadastro = data_cadastro;
 	}
 
-	public List<Contato> getContatos() {
+	public List<ContatoEntity> getContatos() {
 		return contatos;
 	}
 
-	public void setContatos(List<Contato> contatos) {
+	public void setContatos(List<ContatoEntity> contatos) {
 		this.contatos = contatos;
 	}
 
@@ -76,7 +76,7 @@ public class GrupoEntity {
 		this.nome = nome;
 	}
 
-	public GrupoEntity(String desc, String nome, List<Contato> contatos) {
+	public GrupoEntity(String desc, String nome, List<ContatoEntity> contatos) {
 		this.nome = nome;
 		this.descricao = desc;
 		this.contatos = contatos;
