@@ -11,12 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
 @Table(name = "AG_USU")
-@JsonIdentityInfo(scope = UsuarioEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UsuarioEntity {
 
 	@Id
@@ -26,7 +22,7 @@ public class UsuarioEntity {
 	@Column(length = 10, nullable = false, unique = true)
 	private String login;
 
-	@Column(length = 10, nullable = false)
+	@Column(length = 60, nullable = false)
 	private String senha;
 
 	private Date data_cadastro = new Date();

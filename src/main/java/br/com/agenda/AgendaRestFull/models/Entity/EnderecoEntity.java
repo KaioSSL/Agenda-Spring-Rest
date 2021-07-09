@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_ENDERECO")
-@JsonIdentityInfo(scope = Endereco.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Endereco {
+@JsonIdentityInfo(scope = EnderecoEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class EnderecoEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -37,7 +37,7 @@ public class Endereco {
 	private String complemento;
 	
 	@ManyToOne
-	private Bairro bairro;
+	private BairroEntity bairro;
 
 	@ManyToOne
 	private ContatoEntity contato;
@@ -90,11 +90,11 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
-	public Bairro getBairro() {
+	public BairroEntity getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(Bairro bairro) {
+	public void setBairro(BairroEntity bairro) {
 		this.bairro = bairro;
 	}
 
@@ -107,8 +107,8 @@ public class Endereco {
 		this.contato = contato;
 	}
 
-	public Endereco(String logradouro, Integer n_logradouro, Integer cep, String referencia, String complemento,
-			Bairro bairro, ContatoEntity contato) {
+	public EnderecoEntity(String logradouro, Integer n_logradouro, Integer cep, String referencia, String complemento,
+			BairroEntity bairro, ContatoEntity contato) {
 		this.logradouro = logradouro;
 		this.n_logradouro = n_logradouro;
 		this.cep = cep;
@@ -118,7 +118,7 @@ public class Endereco {
 		this.contato = contato;
 	}
 
-	public Endereco() {
+	public EnderecoEntity() {
 		super();
 	}
 
@@ -135,7 +135,7 @@ public class Endereco {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Endereco other = (Endereco) obj;
+		EnderecoEntity other = (EnderecoEntity) obj;
 		return Objects.equals(bairro, other.bairro) && Objects.equals(cep, other.cep)
 				&& Objects.equals(complemento, other.complemento) && Objects.equals(id, other.id)
 				&& Objects.equals(logradouro, other.logradouro) && Objects.equals(n_logradouro, other.n_logradouro)

@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_CIDADE")
-@JsonIdentityInfo(scope = Cidade.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Cidade {
+@JsonIdentityInfo(scope = CidadeEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class CidadeEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class Cidade {
 	private String descricao;
 	
 	@OneToMany(mappedBy = "cidade")
-	private List<Bairro> bairros;
+	private List<BairroEntity> bairros;
 	
 	@ManyToOne
-	private Estado estado;
+	private EstadoEntity estado;
 
 	public Integer getId() {
 		return id;
@@ -60,43 +60,43 @@ public class Cidade {
 		this.descricao = descricao;
 	}
 
-	public List<Bairro> getBairros() {
+	public List<BairroEntity> getBairros() {
 		return bairros;
 	}
 
-	public void setBairros(List<Bairro> bairros) {
+	public void setBairros(List<BairroEntity> bairros) {
 		this.bairros = bairros;
 	}
 
-	public void addBairro(Bairro bairro) {
+	public void addBairro(BairroEntity bairro) {
 		this.bairros.add(bairro);
 	}
 	
-	public void removeBairro(Bairro bairro) {
+	public void removeBairro(BairroEntity bairro) {
 		this.bairros.remove(bairro);
 	}
 	
-	public Estado getEstado() {
+	public EstadoEntity getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Estado estado) {
+	public void setEstado(EstadoEntity estado) {
 		this.estado = estado;
 	}
 
-	public Cidade(String nome, String descricao, List<Bairro> bairros, Estado estado) {
+	public CidadeEntity(String nome, String descricao, List<BairroEntity> bairros, EstadoEntity estado) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.bairros = bairros;
 		this.estado = estado;
 	}
-	public Cidade(String nome, String descricao, Estado estado) {
+	public CidadeEntity(String nome, String descricao, EstadoEntity estado) {
 		this.nome = nome;
 		this.descricao = descricao;
 		this.estado = estado;
 	}
 
-	public Cidade() {
+	public CidadeEntity() {
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class Cidade {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cidade other = (Cidade) obj;
+		CidadeEntity other = (CidadeEntity) obj;
 		return Objects.equals(bairros, other.bairros) && Objects.equals(descricao, other.descricao)
 				&& Objects.equals(estado, other.estado) && Objects.equals(id, other.id)
 				&& Objects.equals(nome, other.nome);

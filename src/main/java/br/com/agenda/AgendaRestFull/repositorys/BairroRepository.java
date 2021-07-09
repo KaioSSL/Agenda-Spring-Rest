@@ -2,8 +2,8 @@ package br.com.agenda.AgendaRestFull.repositorys;
 
 import org.springframework.data.repository.CrudRepository;
 
-import br.com.agenda.AgendaRestFull.models.Entity.Bairro;
+import br.com.agenda.AgendaRestFull.models.Entity.BairroEntity;
 
-public interface BairroRepository extends CrudRepository<Bairro, Integer>{
+public interface BairroRepository extends CrudRepository<BairroEntity, Integer>{
 
 }

@@ -13,12 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 @Entity
 @Table(name = "AG_CONTATO")
-@JsonIdentityInfo(scope = ContatoEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 public class ContatoEntity {
 
 	@Id
@@ -37,7 +34,7 @@ public class ContatoEntity {
 	@Column(length = 30, nullable = false)
 	private String email;
 
-	@Column(nullable = false)
+	@Column
 	private Date data_cadastro = new Date();
 
 	@Column(nullable = false)
@@ -57,7 +54,7 @@ public class ContatoEntity {
 	private GrupoEntity grupo;
 
 	@OneToMany(mappedBy = "contato")
-	private List<Endereco> enderecos;
+	private List<EnderecoEntity> enderecos;
 
 	public Integer getId() {
 		return id;
@@ -147,24 +144,24 @@ public class ContatoEntity {
 		this.grupo = grupo;
 	}
 
-	public List<Endereco> getEnderecos() {
+	public List<EnderecoEntity> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> endereco) {
+	public void setEnderecos(List<EnderecoEntity> endereco) {
 		this.enderecos = endereco;
 	}
 
-	public void addEndereco(Endereco endereco) {
+	public void addEndereco(EnderecoEntity endereco) {
 		this.enderecos.add(endereco);
 	}
 
-	public void removeEndereco(Endereco endereco) {
+	public void removeEndereco(EnderecoEntity endereco) {
 		this.removeEndereco(endereco);
 	}
 
 	public ContatoEntity(String nome, String sobrenome, String telefone, String email, String celular, Integer marcador,
-			String observacao, UsuarioEntity usuario, GrupoEntity grupo, List<Endereco> enderecos) {
+			String observacao, UsuarioEntity usuario, GrupoEntity grupo, List<EnderecoEntity> enderecos) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;

@@ -2,10 +2,16 @@ package br.com.agenda.AgendaRestFull.models.DTO;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(scope = ContatoDTO.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ContatoDTO {
 
 	@Positive
@@ -23,13 +29,21 @@ public class ContatoDTO {
 	@Size(max = 30)
 	private String email;
 
-	private Date data;
+	@NotNull
+	private Date data_cadastro = new Date();
 
 	private String celular;
+	
+	@Positive
 	private Integer marcador;
-	private String descricao;
+	
+	private String observacao;
+	
 	private UsuarioDTO usuario;
+	
 	private GrupoDTO grupo;
+	
+	@JsonIgnore
 	private List<EnderecoDTO> enderecos;
 
 	public Integer getId() {
@@ -72,12 +86,12 @@ public class ContatoDTO {
 		this.email = email;
 	}
 
-	public Date getData() {
-		return data;
+	public Date getData_cadastro() {
+		return data_cadastro;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setData_cadastro(Date data) {
+		this.data_cadastro = data;
 	}
 
 	public String getCelular() {
@@ -96,12 +110,12 @@ public class ContatoDTO {
 		this.marcador = marcador;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getObservacao() {
+		return observacao;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 
 	public UsuarioDTO getUsuario() {
@@ -128,8 +142,8 @@ public class ContatoDTO {
 		this.enderecos = enderecos;
 	}
 
-	public ContatoDTO(Integer id, String nome, String sobrenome, String telefone, String email, Date data,
-			String celular, Integer marcador, String descricao, UsuarioDTO usuario, GrupoDTO grupo,
+	public ContatoDTO(Integer id, String nome, String sobrenome, String telefone, String email, Date data_cadastro,
+			String celular, Integer marcador, String observacao, UsuarioDTO usuario, GrupoDTO grupo,
 			List<EnderecoDTO> enderecos) {
 		super();
 		this.id = id;
@@ -137,42 +151,42 @@ public class ContatoDTO {
 		this.sobrenome = sobrenome;
 		this.telefone = telefone;
 		this.email = email;
-		this.data = data;
+		this.data_cadastro = data_cadastro;
 		this.celular = celular;
 		this.marcador = marcador;
-		this.descricao = descricao;
+		this.observacao = observacao;
 		this.usuario = usuario;
 		this.grupo = grupo;
 		this.enderecos = enderecos;
 	}
 
-	public ContatoDTO(String nome, String sobrenome, String telefone, String email, Date data, String celular,
-			Integer marcador, String descricao, UsuarioDTO usuario, GrupoDTO grupo, List<EnderecoDTO> enderecos) {
+	public ContatoDTO(String nome, String sobrenome, String telefone, String email, Date data_cadastro, String celular,
+			Integer marcador, String observacao, UsuarioDTO usuario, GrupoDTO grupo, List<EnderecoDTO> enderecos) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.telefone = telefone;
 		this.email = email;
-		this.data = data;
+		this.data_cadastro = data_cadastro;
 		this.celular = celular;
 		this.marcador = marcador;
-		this.descricao = descricao;
+		this.observacao = observacao;
 		this.usuario = usuario;
 		this.grupo = grupo;
 		this.enderecos = enderecos;
 	}
 
-	public ContatoDTO(String nome, String sobrenome, String telefone, String email, Date data, String celular,
-			Integer marcador, String descricao, UsuarioDTO usuario, GrupoDTO grupo) {
+	public ContatoDTO(String nome, String sobrenome, String telefone, String email, Date data_cadastro, String celular,
+			Integer marcador, String observacao, UsuarioDTO usuario, GrupoDTO grupo) {
 		super();
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 		this.telefone = telefone;
 		this.email = email;
-		this.data = data;
+		this.data_cadastro = data_cadastro;
 		this.celular = celular;
 		this.marcador = marcador;
-		this.descricao = descricao;
+		this.observacao = observacao;
 		this.usuario = usuario;
 		this.grupo = grupo;
 	}
@@ -181,4 +195,28 @@ public class ContatoDTO {
 		super();
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(celular, data_cadastro, email, enderecos, grupo, id, marcador, nome, observacao, sobrenome,
+				telefone, usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ContatoDTO other = (ContatoDTO) obj;
+		return Objects.equals(celular, other.celular) && Objects.equals(data_cadastro, other.data_cadastro)
+				&& Objects.equals(email, other.email) && Objects.equals(enderecos, other.enderecos)
+				&& Objects.equals(grupo, other.grupo) && Objects.equals(id, other.id)
+				&& Objects.equals(marcador, other.marcador) && Objects.equals(nome, other.nome)
+				&& Objects.equals(observacao, other.observacao) && Objects.equals(sobrenome, other.sobrenome)
+				&& Objects.equals(telefone, other.telefone) && Objects.equals(usuario, other.usuario);
+	}
+	
+	
 }

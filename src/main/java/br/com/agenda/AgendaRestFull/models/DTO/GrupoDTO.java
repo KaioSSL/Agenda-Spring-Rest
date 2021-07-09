@@ -2,10 +2,15 @@ package br.com.agenda.AgendaRestFull.models.DTO;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(scope = GrupoDTO.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class GrupoDTO {
 
 	@Positive
@@ -16,7 +21,8 @@ public class GrupoDTO {
 	private String nome;
 
 	private Date data_cadastro = new Date();
-
+	
+	@JsonIgnore
 	private List<ContatoDTO> contatos;
 
 	public Integer getId() {
@@ -80,4 +86,24 @@ public class GrupoDTO {
 		super();
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(contatos, data_cadastro, descricao, id, nome);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GrupoDTO other = (GrupoDTO) obj;
+		return Objects.equals(contatos, other.contatos) && Objects.equals(data_cadastro, other.data_cadastro)
+				&& Objects.equals(descricao, other.descricao) && Objects.equals(id, other.id)
+				&& Objects.equals(nome, other.nome);
+	}
+	
+	
 }

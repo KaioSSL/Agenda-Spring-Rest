@@ -2,6 +2,7 @@ package br.com.agenda.AgendaRestFull.models.DTO;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
@@ -9,6 +10,10 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+@JsonIdentityInfo(scope = UsuarioDTO.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class UsuarioDTO {
 
 	@Positive
@@ -28,7 +33,8 @@ public class UsuarioDTO {
 
 	@Email
 	private String email;
-
+	
+	@JsonIgnore
 	private List<ContatoDTO> contatos;
 
 	// Getters and Setters
@@ -117,4 +123,26 @@ public class UsuarioDTO {
 
 	public UsuarioDTO() {
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(contatos, data_cadastro, email, id, login, senha, status);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsuarioDTO other = (UsuarioDTO) obj;
+		return Objects.equals(contatos, other.contatos) && Objects.equals(data_cadastro, other.data_cadastro)
+				&& Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(login, other.login) && Objects.equals(senha, other.senha)
+				&& Objects.equals(status, other.status);
+	}
+	
+	
 }

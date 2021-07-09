@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "AG_BAIRRO")
-@JsonIdentityInfo(scope = Bairro.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Bairro {
+@JsonIdentityInfo(scope = BairroEntity.class, generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class BairroEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +31,10 @@ public class Bairro {
 	private String descricao;
 	
 	@OneToMany(mappedBy = "bairro")
-	private List<Endereco> enderecos;
+	private List<EnderecoEntity> enderecos;
 	
 	@ManyToOne
-	private Cidade cidade;
+	private CidadeEntity cidade;
 
 	public Integer getId() {
 		return id;
@@ -60,31 +60,31 @@ public class Bairro {
 		this.descricao = descricao;
 	}
 
-	public List<Endereco> getEnderecos() {
+	public List<EnderecoEntity> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
+	public void setEnderecos(List<EnderecoEntity> enderecos) {
 		this.enderecos = enderecos;
 	}
 	
-	public void addEndereco(Endereco endereco) {
+	public void addEndereco(EnderecoEntity endereco) {
 		this.enderecos.add(endereco);
 	}
 	
-	public void removeEndereco(Endereco endereco) {
+	public void removeEndereco(EnderecoEntity endereco) {
 		this.enderecos.remove(endereco);
 	}
 
-	public Cidade getCidade() {
+	public CidadeEntity getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(Cidade cidade) {
+	public void setCidade(CidadeEntity cidade) {
 		this.cidade = cidade;
 	}
 
-	public Bairro(String nome, String descricao, List<Endereco> enderecos, Cidade cidade) {
+	public BairroEntity(String nome, String descricao, List<EnderecoEntity> enderecos, CidadeEntity cidade) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -92,14 +92,14 @@ public class Bairro {
 		this.cidade = cidade;
 	}
 
-	public Bairro(String nome, String descricao, Cidade cidade) {
+	public BairroEntity(String nome, String descricao, CidadeEntity cidade) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
 		this.cidade = cidade;
 	}
 
-	public Bairro() {
+	public BairroEntity() {
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class Bairro {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Bairro other = (Bairro) obj;
+		BairroEntity other = (BairroEntity) obj;
 		return Objects.equals(cidade, other.cidade) && Objects.equals(descricao, other.descricao)
 				&& Objects.equals(enderecos, other.enderecos) && Objects.equals(id, other.id)
 				&& Objects.equals(nome, other.nome);
